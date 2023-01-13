@@ -1,10 +1,29 @@
+# https://api.themoviedb.org/3/movie/popular?api_key=659c1672a0af14d5172d2ee059e442a0&language=ko
 import requests
 from pprint import pprint
-
 
 def vote_average_movies():
     pass 
     # 여기에 코드를 작성합니다.  
+    vote_average_movies_over_8 = []
+
+    BASE_URL = 'https://api.themoviedb.org/3'
+    path = '/movie/popular'
+    params = {
+        'api_key': '659c1672a0af14d5172d2ee059e442a0', # 키값 입력
+        'language': 'ko-KR',
+        'region': 'KR'
+    }
+
+    response = requests.get(BASE_URL+path, params=params)
+    data = response.json()
+    movies = data.get('results')
+
+    for i in movies:
+      vote_averag = i.get('vote_average')
+      if vote_averag >=8:
+        vote_average_movies_over_8.append(i)
+    return vote_average_movies_over_8
 
 
 # 아래의 코드는 수정하지 않습니다.
